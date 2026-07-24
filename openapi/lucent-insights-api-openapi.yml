@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: Lucent Insights API
+  description: HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.
+  license:
+    name: MIT
+  version: 0.1.0
+servers:
+- url: https://app.lucenthq.com
+  description: Production app
+tags:
+- name: Insights
+paths:
+  /api/v1/insights:
+    get:
+      summary: List insights
+      description: Lists recent AI-generated insights for the bearer token's organization.
+      operationId: listInsights
+      security:
+      - lucentBearer: []
+      parameters:
+      - $ref: '#/components/parameters/LimitInsights'
+      - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Insights page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInsightsResponse'
+        '400':
+          $ref: '#/components/responses/DataBadRequest'
+        '401':
+          $ref: '#/components/responses/DataUnauthorized'
+        '429':
+          $ref: '#/components/responses/DataRateLimited'
+      tags:
+      - Insights
+components:
+  parameters:
+    LimitInsights:
+      name: limit
+      in: query
+      required: false
+      description: Maximum insights to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
+  schemas:
+    ListInsightsResponse:
+      type: object
+      required:
+      - insights
+      - nextCursor
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insight'
+        nextCursor:
+          type: string
+          nullable: true
+    Insight:
+      type: object
+      required:
+      - id
+      - createdAt
+      - intervalStart
+      - intervalEnd
+      - sessionsCount
+      - contentPreview
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        intervalStart:
+          type: string
+          format: date-time
+        intervalEnd:
+          type: string
+          format: date-time
+        sessionsCount:
+          type: integer
+          minimum: 0
+        contentPreview:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+  responses:
+    DataRateLimited:
+      description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
+      headers:
+        Retry-After:
+          description: Seconds until the rate limit resets.
+          schema:
+            type: integer
+            minimum: 1
+        X-RateLimit-Limit:
+          description: Limit for the current window.
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: Remaining requests in the current window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: Unix timestamp when the current window resets.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    lucentApiKey:
+      type: apiKey
+      in: header
+      name: X-Lucent-Api-Key
+      description: Public key prefixed with `luc_pk_`. Safe to expose in client-side code. For `navigator.sendBeacon` callers that cannot set headers, the key may also be passed as the `api_key` query parameter.
+    lucentBearer:
+      type: http
+      scheme: bearer
+      description: API keys prefixed with `luc_api_` or OAuth access tokens prefixed with `luc_oat_`. Legacy static keys prefixed with `luc_mcp_` continue to work.
