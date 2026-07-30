@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.lucenthq.com/api-reference/data-api
+authentication:
+  style: >-
+    Two credential classes. Ingest API: write-only public key `luc_pk_` in the
+    `X-Lucent-Api-Key` header (or `api_key` query param for sendBeacon). Data API:
+    bearer token (`luc_api_` API key or `luc_oat_` OAuth access token) in the
+    `Authorization: Bearer` header. Every request is scoped to the token's organization —
+    there is no orgId parameter.
+  see: authentication/lucent-authentication.yml
+idempotency:
+  supported: true
+  mechanisms:
+  - operation: sdkReplay
+    key: (sessionId, sequence)
+    behavior: Replay batches are idempotent per (sessionId, sequence); the same batch submitted twice is stored once.
+  - operation: updateIssueStatus
+    behavior: Updating issue status is idempotent — setting the current status again returns 200 with the unchanged issue.
+  - surface: webhooks
+    key: envelope id (Lucent-Webhook-Id header / body `id`)
+    behavior: Identical across every retry of the same event; use it to dedupe on the receiver.
+pagination:
+  style: cursor
+  request_params: [limit, cursor]
+  response_fields: [nextCursor]
+  ordering: createdAt descending, then id descending
+  limits:
+    issues: {default: 25, max: 200}
+    signals: {default: 50, max: 200}
+    insights: {default: 25, max: 100}
+rate_limiting:
+  signal: HTTP 429 Too Many Requests with a `Retry-After` header (seconds until reset).
+  published_counts: false
+versioning:
+  scheme: uri-path
+  current: v1
+  example: /api/v1/issues
+error_envelope:
+  shape: '{ "error": "<message>" }'
+  format: custom-json (not RFC 9457 problem+json)
+  see: errors/lucent-problem-types.yml
+content_encoding:
+  ingest: 'Accepts plain JSON or gzip-compressed JSON (Content-Encoding: gzip) on /api/sdk/replay.'
+webhooks:
+  see: asyncapi/lucent-webhooks-asyncapi.yml

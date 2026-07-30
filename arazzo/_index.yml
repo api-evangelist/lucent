@@ -1,0 +1,8 @@
+generated: '2026-07-20'
+method: derived
+source: arazzo/*.yml
+workflows:
+- file: lucent-triage-and-resolve.yml
+  workflowId: triageAndResolveIssue
+  title: Triage and resolve an issue
+  summary: List the newest unresolved issue, fetch it, and mark it resolved.

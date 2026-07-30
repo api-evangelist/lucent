@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/lucent-openapi-original.json + https://docs.lucenthq.com
+skills:
+- file: lucent-triage-issues.md
+  name: Triage Lucent issues
+  api: openapi/lucent-openapi-original.json
+  operations: [listIssues, getIssue, updateIssueStatus]
+- file: lucent-monitor-signals-insights.md
+  name: Monitor Lucent signals and insights
+  api: openapi/lucent-openapi-original.json
+  operations: [listSignals, listInsights]
+- file: lucent-ingest-replay.md
+  name: Ingest a Lucent session replay
+  api: openapi/lucent-openapi-original.json
+  operations: [sdkReplay]

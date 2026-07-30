@@ -1,0 +1,21 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.lucenthq.com/api-reference/data-api
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.lucenthq.com/api-reference/introduction
+  spec_version: 0.1.0
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/sunset policy published. Legacy `luc_mcp_` static keys are documented as continuing to work.
+sla:
+  url: null
+status_page: null
+roadmap:
+  note: >-
+    The webhooks reference lists roadmap event types not yet shipped:
+    issue.status_changed, issue.recurred, signal.matched, insight.generated.
+  page: null
+deprecated_operations: []

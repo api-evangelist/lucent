@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+status: published
+source: https://docs.lucenthq.com/mcp/quickstart
+server:
+  name: lucent
+  transport: http
+  transport_note: Streamable HTTP is the only supported transport.
+  url: https://app.lucenthq.com/api/mcp
+authentication:
+  methods:
+  - type: oauth
+    recommended: true
+    note: OAuth 2.1 with Dynamic Client Registration, PKCE (S256), and rotating refresh tokens. Access tokens prefixed `luc_oat_` (1-hour TTL); 30-day refresh tokens.
+    metadata:
+    - well-known/lucent-oauth-authorization-server.json
+    - well-known/lucent-oauth-protected-resource.json
+  - type: bearer
+    note: Long-lived static tokens prefixed `luc_mcp_`, created in Organization settings and shown once (stored as SHA-256 hashes).
+  header: 'Authorization: Bearer <token>'
+scopes:
+- read:lucent
+- write:issues
+tools:
+- name: list_issues
+  description: List issues for the organization, optionally filtered by status.
+  scope: read:lucent
+  parameters: [limit (int, default 25, max 200), status (unresolved|ticket_created|ignored|resolved)]
+  source_operation: openapi/lucent-openapi-original.json#listIssues
+- name: get_issue
+  description: Retrieve a single issue by its identifier.
+  scope: read:lucent
+  parameters: [issueId (uuid, required)]
+  source_operation: openapi/lucent-openapi-original.json#getIssue
+- name: list_signals
+  description: List signals configured for the organization, with match counts and last-match timestamps.
+  scope: read:lucent
+  parameters: [limit (int, default 50, max 200)]
+  source_operation: openapi/lucent-openapi-original.json#listSignals
+- name: list_insights
+  description: List the most recent insights (periodic session summaries).
+  scope: read:lucent
+  parameters: [limit (int, default 25, max 100)]
+  source_operation: openapi/lucent-openapi-original.json#listInsights
+- name: update_issue
+  description: Modify an issue's status (resolve, ignore, reopen, or escalate).
+  scope: write:issues
+  parameters: [issueId (uuid, required), status (required)]
+  source_operation: openapi/lucent-openapi-original.json#updateIssueStatus

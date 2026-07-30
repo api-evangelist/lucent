@@ -1,0 +1,53 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/lucent-openapi-original.json
+entities:
+- name: Issue
+  id: uuid
+  schema: Issue (allOf IssueSummary + stepsToReplicate, aiVerified, updatedAt)
+  fields: [id, title, description, status, priority, previewUrl, createdAt, sessionCount, ticketProvider, ticketUrl, ticketIdentifier, stepsToReplicate, aiVerified, updatedAt]
+  status_enum: [unresolved, ticket_created, transient, resolved]
+  priority_enum: [low, medium, high, critical]
+- name: Signal
+  id: uuid
+  fields: [id, name, prompt, status, backfillStatus, createdAt, matchCount, lastMatchAt]
+- name: Insight
+  id: uuid
+  fields: [id, createdAt, intervalStart, intervalEnd, sessionsCount, contentPreview]
+- name: ReplayBatch
+  description: An ingested batch of rrweb events for one session window.
+  fields: [session, user, page, replay, metadata, flush]
+- name: RrwebEvent
+  fields: [timestamp, type, data]
+- name: Organization
+  description: Tenant that owns issues, signals, insights, keys, and webhook endpoints. Every token is org-scoped.
+relationships:
+- from: Issue
+  to: Organization
+  type: belongs_to
+  via: orgId
+- from: Issue
+  to: ReplayBatch
+  type: derived_from
+  via: sourceType (session_analysis)
+- from: Issue
+  to: Insight
+  type: derived_from
+  via: sourceType (insight)
+- from: Signal
+  to: Organization
+  type: belongs_to
+- from: Insight
+  to: Organization
+  type: belongs_to
+- from: ReplayBatch
+  to: RrwebEvent
+  type: has_many
+  via: replay
+id_prefixes:
+  luc_pk_: Ingest public key (write-only)
+  luc_api_: Data API key
+  luc_oat_: OAuth access token
+  luc_mcp_: Legacy static MCP bearer token
+  whsec_: Webhook signing secret
+identifiers: Issues, signals, and insights are identified by UUIDs.

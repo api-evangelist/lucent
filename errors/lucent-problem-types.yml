@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/lucent-openapi-original.json
+format: custom-json
+envelope:
+  shape: '{ "error": "<string>" }'
+  schema: ErrorResponse
+  note: Lucent returns a simple JSON error envelope with a single `error` string, not RFC 9457 problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Malformed request — invalid body, out-of-range `limit`, or bad parameter.
+  operations: [sdkReplay, listIssues, getIssue, updateIssueStatus, listSignals, listInsights]
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid credential.
+  messages:
+  - '"Missing API key" — no X-Lucent-Api-Key header or api_key query parameter (ingest).'
+  - '"Invalid or revoked API key" — key not recognized or revoked (ingest).'
+  - Missing/invalid bearer token (Data API).
+  operations: [sdkReplay, listIssues, getIssue, updateIssueStatus, listSignals, listInsights]
+- status: 403
+  title: Forbidden
+  meaning: Token lacks the required scope (e.g. updating issue status without `write:issues`).
+  operations: [updateIssueStatus]
+- status: 404
+  title: Not Found
+  meaning: The referenced issue does not exist or is not visible to the token's organization.
+  operations: [getIssue, updateIssueStatus]
+- status: 429
+  title: Too Many Requests
+  meaning: Rate limit exceeded. Response includes a `Retry-After` header (seconds until reset).
+  operations: [sdkReplay, listIssues, getIssue, updateIssueStatus, listSignals, listInsights]
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server error while accepting a replay batch.
+  operations: [sdkReplay]

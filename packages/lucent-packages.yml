@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: npm registry + https://docs.lucenthq.com
+packages:
+- language: javascript
+  registry: npm
+  name: "@lucenthq/sdk"
+  version: 0.0.5
+  url: https://www.npmjs.com/package/@lucenthq/sdk
+  install: npm install @lucenthq/sdk
+  description: Lucent session replay SDK — a lightweight rrweb-based recorder that captures DOM mutations, clicks, inputs, console output, and network calls, with privacy masking on by default.
+  repository: https://github.com/lucent-ai/mono-lucent
+  official: true
+- language: javascript
+  registry: npm
+  name: "@lucenthq/cli"
+  version: 0.1.0
+  url: https://www.npmjs.com/package/@lucenthq/cli
+  install: npx @lucenthq/cli init luc_pk_...
+  description: Zero-config auto-installer for the Lucent browser SDK; detects the framework and package manager, writes the provider file and env var, and wires recording into the app tree.
+  official: true
+- language: javascript
+  registry: npm
+  name: "@lucenthq/react-native"
+  url: https://docs.lucenthq.com/sdk/react-native
+  install: npm install @lucenthq/react-native
+  description: Screenshot-mode mobile session replay for React Native and Expo apps.
+  official: true
+  registry_status: documented; not yet resolvable on npm (404 at probe time 2026-07-20)
+- language: dart
+  registry: pub.dev
+  name: lucent_flutter
+  url: https://docs.lucenthq.com/sdk/flutter
+  install: flutter pub add lucent_flutter
+  description: Mobile session replay, events, logs, network breadcrumbs, and errors for Flutter apps.
+  official: true
+  registry_status: documented; not yet resolvable on pub.dev (404 at probe time 2026-07-20)

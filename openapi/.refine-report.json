@@ -1,0 +1,20 @@
+{
+  "provider": "lucent",
+  "sources": [
+    "lucent-insights-api-openapi.yml",
+    "lucent-issues-api-openapi.yml",
+    "lucent-sdk-api-openapi.yml",
+    "lucent-signals-api-openapi.yml"
+  ],
+  "outputs": [
+    "lucent-insights-api-openapi.yml",
+    "lucent-issues-api-openapi.yml",
+    "lucent-sdk-api-openapi.yml",
+    "lucent-signals-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

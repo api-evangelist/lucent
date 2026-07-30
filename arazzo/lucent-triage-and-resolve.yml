@@ -1,0 +1,54 @@
+arazzo: 1.0.1
+info:
+  title: Lucent — triage and resolve an issue
+  version: 1.0.0
+  description: List unresolved issues, fetch the top one, and mark it resolved.
+sourceDescriptions:
+- name: lucent
+  url: ../openapi/lucent-openapi-original.json
+  type: openapi
+workflows:
+- workflowId: triageAndResolveIssue
+  summary: Find the newest unresolved issue and resolve it.
+  inputs:
+    type: object
+    properties:
+      token:
+        type: string
+        description: Bearer token with read:lucent and write:issues.
+  steps:
+  - stepId: listUnresolved
+    operationId: listIssues
+    parameters:
+    - name: status
+      in: query
+      value: unresolved
+    - name: limit
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      issueId: $response.body#/issues/0/id
+  - stepId: getIssue
+    operationId: getIssue
+    parameters:
+    - name: issueId
+      in: path
+      value: $steps.listUnresolved.outputs.issueId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: resolveIssue
+    operationId: updateIssueStatus
+    parameters:
+    - name: issueId
+      in: path
+      value: $steps.listUnresolved.outputs.issueId
+    requestBody:
+      contentType: application/json
+      payload:
+        status: resolved
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    resolvedIssueId: $steps.listUnresolved.outputs.issueId

@@ -1,0 +1,69 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.lucenthq.com/api-reference/webhooks
+spec_type: AsyncAPI
+asyncapi: 3.0.0
+info:
+  title: Lucent Webhooks
+  version: '1.0'
+  description: >-
+    Lucent pushes signed HTTP callbacks to a receiver URL you register (Organization →
+    Webhooks) when events happen in your organization. Deliveries are signed with
+    HMAC-SHA256 (Lucent-Signature) and carry a stable envelope id for deduplication.
+    Up to 3 active endpoints per organization; available on paid plans.
+defaultContentType: application/json
+servers:
+  receiver:
+    host: your-service.example.com
+    protocol: https
+    description: The HTTPS endpoint you register in the Lucent dashboard to receive POST callbacks.
+channels:
+  webhookDeliveries:
+    address: /
+    messages:
+      issueCreated:
+        $ref: '#/components/messages/issueCreated'
+operations:
+  receiveIssueCreated:
+    action: receive
+    channel:
+      $ref: '#/channels/webhookDeliveries'
+    messages:
+    - $ref: '#/channels/webhookDeliveries/messages/issueCreated'
+components:
+  messages:
+    issueCreated:
+      name: issue.created
+      title: Issue created
+      summary: A new issue is created from session analysis or AI insights.
+      headers:
+        type: object
+        properties:
+          Lucent-Signature: {type: string, description: 't=<ts>,v1=<hex>; HMAC-SHA256 over ${t}.${rawBody}.'}
+          Lucent-Webhook-Id: {type: string, format: uuid, description: Same as body id; identical across retries — persist for dedup.}
+          Lucent-Event: {type: string, description: The event type.}
+          Lucent-Webhook-Test: {type: string, description: Present ("1") only on dashboard test events.}
+      payload:
+        type: object
+        required: [event, id, occurredAt, data]
+        properties:
+          event: {type: string, enum: [issue.created]}
+          id: {type: string, format: uuid, description: Envelope id, stable across retries.}
+          occurredAt: {type: string, format: date-time}
+          data:
+            type: object
+            properties:
+              issueId: {type: string, format: uuid}
+              orgId: {type: string, format: uuid}
+              title: {type: string}
+              description: {type: [string, 'null']}
+              status: {type: string, enum: [unresolved, ticket_created, transient, resolved]}
+              priority: {type: string, enum: [critical, high, medium, low]}
+              previewUrl: {type: [string, 'null']}
+              aiVerified: {type: [boolean, 'null']}
+              sourceType: {type: string, enum: [session_analysis, insight]}
+x-roadmap-events:
+- issue.status_changed
+- issue.recurred
+- signal.matched
+- insight.generated

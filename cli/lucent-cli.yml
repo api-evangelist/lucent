@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.lucenthq.com/sdk/cli
+name: "@lucenthq/cli"
+package: packages/lucent-packages.yml
+description: Zero-config installer for the Lucent browser SDK; wires session recording into a web framework in one command.
+install:
+- npx @lucenthq/cli init luc_pk_...
+commands:
+- name: init
+  usage: npx @lucenthq/cli init <luc_pk_...>
+  does:
+  - Validates the public key against the Lucent ingest API.
+  - Prompts for framework and sub-variant (App Router vs Pages Router, Vite vs CRA, ...).
+  - Detects the package manager (npm/yarn/pnpm) and installs @lucenthq/sdk.
+  - Writes the framework's public-key env var (NEXT_PUBLIC_LUCENT_PUBLIC_KEY, VITE_LUCENT_PUBLIC_KEY, ...).
+  - Creates a provider/service file and wires it into the app root; prints manual steps if a step is unsafe to automate.
+supported_frameworks:
+- Next.js (App Router, Pages Router)
+- React (Vite, Create React App)
+- Vue 3 (Vite)
+- Angular (Standalone 17+, NgModule)
+- Svelte (SvelteKit, plain)
+- Nuxt 3
+- Remix v2
+- Astro
+- Gatsby

@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.lucenthq.com/mcp/oauth
+docs: https://docs.lucenthq.com/api-reference/authentication
+well_known:
+- well-known/lucent-oauth-authorization-server.json
+- well-known/lucent-oauth-protected-resource.json
+note: >-
+  Scopes govern the Data API bearer tokens and the OAuth 2.1 authorization server that
+  fronts the MCP endpoint. The OpenAPI declares an http bearer scheme (lucentBearer); the
+  scope model is documented in the auth/OAuth docs and advertised in RFC 8414/9728 metadata.
+schemes:
+- name: OAuth2.1
+  type: oauth2
+  authorizationUrl: https://app.lucenthq.com/oauth/authorize
+  tokenUrl: https://app.lucenthq.com/api/oauth/token
+  registrationUrl: https://app.lucenthq.com/api/oauth/register
+  revocationUrl: https://app.lucenthq.com/api/oauth/revoke
+  grant_types: [authorization_code, refresh_token]
+  pkce: S256
+  dynamic_client_registration: true
+scopes:
+- scope: read:lucent
+  description: Read access to all Data API read endpoints and the four read MCP tools (list_issues, get_issue, list_signals, list_insights). Included with every token.
+  grants: [listIssues, getIssue, listSignals, listInsights]
+- scope: write:issues
+  description: Permits updating issue status via PATCH /api/v1/issues/{issueId} and the update_issue MCP tool. Must be explicitly requested in the OAuth flow or enabled at API-key creation ("Allow issue status updates").
+  grants: [updateIssueStatus]

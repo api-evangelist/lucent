@@ -1,0 +1,54 @@
+# Lucent
+
+## Docs
+
+- [Claude Code setup](https://docs.lucenthq.com/ai-tools/claude-code.md): Configure Claude Code for your documentation workflow
+- [Cursor setup](https://docs.lucenthq.com/ai-tools/cursor.md): Configure Cursor for your documentation workflow
+- [Windsurf setup](https://docs.lucenthq.com/ai-tools/windsurf.md): Configure Windsurf for your documentation workflow
+- [Authentication](https://docs.lucenthq.com/api-reference/authentication.md): How Lucent ingest keys and Data API bearer tokens are validated.
+- [Data API](https://docs.lucenthq.com/api-reference/data-api.md): Read issues, signals, and insights over REST, and update issue status using bearer tokens.
+- [Replay](https://docs.lucenthq.com/api-reference/endpoint/replay.md): Accepts a batch of rrweb events for a single session window. Batches are idempotent per `(sessionId, sequence)` — the same batch submitted twice is stored once. When `flush` is `final`, the server dispatches the session for processing immediately; otherwise the session is left in a `receiving` state…
+- [Get an issue](https://docs.lucenthq.com/api-reference/get-an-issue.md): Fetches a single issue by UUID for the bearer token's organization.
+- [Introduction](https://docs.lucenthq.com/api-reference/introduction.md): The Lucent HTTP APIs for submitting session recordings, reading Lucent data, and updating issue status.
+- [List insights](https://docs.lucenthq.com/api-reference/list-insights.md): Lists recent AI-generated insights for the bearer token's organization.
+- [List issues](https://docs.lucenthq.com/api-reference/list-issues.md): Lists issues visible to the bearer token's organization, ordered by `createdAt` descending and then `id` descending.
+- [List signals](https://docs.lucenthq.com/api-reference/list-signals.md): Lists configured signals and match counts for the bearer token's organization.
+- [Update issue status](https://docs.lucenthq.com/api-reference/update-issue-status.md): Updates an issue's status. The operation is idempotent: setting the current status again returns `200` with the unchanged issue.
+- [Webhooks](https://docs.lucenthq.com/api-reference/webhooks.md): Receive HTTP callbacks from Lucent when issues and other events happen in your organization.
+- [Welcome to Lucent](https://docs.lucenthq.com/index.md): Session replay and product insights that show you exactly what happened.
+- [Sentry replay](https://docs.lucenthq.com/integrations/sentry.md): Connect Sentry Session Replay to Lucent.
+- [Session replay integrations](https://docs.lucenthq.com/integrations/session-replay.md): Import sessions from supported replay providers and use them in Lucent Signals.
+- [OAuth reference](https://docs.lucenthq.com/mcp/oauth.md): Protocol-level details for the Lucent OAuth 2.1 authorization server that fronts the MCP endpoint.
+- [MCP quickstart](https://docs.lucenthq.com/mcp/quickstart.md): Connect Claude, Cursor, Claude Desktop, or any MCP-compatible client to your Lucent data.
+- [Tool reference](https://docs.lucenthq.com/mcp/tools.md): The five tools the Lucent MCP server exposes to agents — four read tools and one write tool.
+- [Quickstart](https://docs.lucenthq.com/quickstart.md): Record your first Lucent session in under five minutes.
+- [CLI installer](https://docs.lucenthq.com/sdk/cli.md): One command to install @lucenthq/sdk and wire it into your framework.
+- [Configuration](https://docs.lucenthq.com/sdk/configuration.md): Full reference for LucentInitOptions.
+- [Flutter SDK](https://docs.lucenthq.com/sdk/flutter.md): Install lucent_flutter and capture mobile session replay, events, logs, network breadcrumbs, and errors.
+- [Flutter support reference](https://docs.lucenthq.com/sdk/flutter-reference.md): Reference for lucent_flutter configuration, replay behavior, persistence, and known limitations.
+- [Angular](https://docs.lucenthq.com/sdk/frameworks/angular.md): Install Lucent in an Angular app. Supports both Standalone (17+) and NgModule.
+- [Astro](https://docs.lucenthq.com/sdk/frameworks/astro.md): Install Lucent in an Astro site via a Layout component.
+- [Gatsby](https://docs.lucenthq.com/sdk/frameworks/gatsby.md): Install Lucent in a Gatsby v5 site.
+- [Next.js](https://docs.lucenthq.com/sdk/frameworks/nextjs.md): Install Lucent in a Next.js app. Works with both App Router and Pages Router.
+- [Nuxt](https://docs.lucenthq.com/sdk/frameworks/nuxt.md): Install Lucent in a Nuxt 3 application.
+- [React](https://docs.lucenthq.com/sdk/frameworks/react.md): Install Lucent in a React app built with Vite or Create React App.
+- [Remix](https://docs.lucenthq.com/sdk/frameworks/remix.md): Install Lucent in a Remix v2 application.
+- [Svelte](https://docs.lucenthq.com/sdk/frameworks/svelte.md): Install Lucent in SvelteKit or plain Svelte.
+- [Vanilla JavaScript](https://docs.lucenthq.com/sdk/frameworks/vanilla.md): Install Lucent in any app that can import an npm package.
+- [Vue](https://docs.lucenthq.com/sdk/frameworks/vue.md): Install Lucent in a Vue 3 + Vite application.
+- [Installation](https://docs.lucenthq.com/sdk/installation.md): Install @lucenthq/sdk and wire it into your app.
+- [React API reference](https://docs.lucenthq.com/sdk/react.md): Provider, identify component, and hook exposed by @lucenthq/sdk/react.
+- [React Native SDK](https://docs.lucenthq.com/sdk/react-native.md): Install @lucenthq/react-native for screenshot-mode mobile session replay in React Native and Expo apps.
+- [Expo setup](https://docs.lucenthq.com/sdk/react-native/expo.md): Use @lucenthq/react-native in Expo apps with development builds, EAS builds, or prebuilt native projects.
+- [Filtering](https://docs.lucenthq.com/settings/filtering.md): Control which sessions Lucent processes for each project.
+- [Product Context](https://docs.lucenthq.com/settings/product-context.md): Give Lucent project-specific context about your product and users.
+- [Feature flag filters](https://docs.lucenthq.com/signals/feature-flags.md): Filter Signals by the evaluated feature flags seen in each session.
+
+## OpenAPI Specs
+
+- [openapi](https://docs.lucenthq.com/api-reference/openapi.json)
+
+## Optional
+
+- [Dashboard](https://app.lucenthq.com)
+- [GitHub](https://github.com/lucent-ai)

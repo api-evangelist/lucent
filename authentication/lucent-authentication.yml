@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/lucent-openapi-original.json
+docs: https://docs.lucenthq.com/api-reference/authentication
+oauth_docs: https://docs.lucenthq.com/mcp/oauth
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  - query
+  oauth2:
+    profile: OAuth 2.1 (fronts the MCP endpoint; PKCE S256, Dynamic Client Registration, refresh tokens)
+    authorizationUrl: https://app.lucenthq.com/oauth/authorize
+    tokenUrl: https://app.lucenthq.com/api/oauth/token
+    scopes: [read:lucent, write:issues]
+    metadata:
+    - well-known/lucent-oauth-authorization-server.json
+    - well-known/lucent-oauth-protected-resource.json
+  token_prefixes:
+    luc_pk_: Ingest public key (write-only; X-Lucent-Api-Key header or api_key query)
+    luc_api_: Data API key (bearer)
+    luc_oat_: OAuth access token (bearer, 1h TTL)
+    luc_mcp_: Legacy static MCP bearer token
+schemes:
+- name: lucentApiKey
+  type: apiKey
+  in: header
+  parameter: X-Lucent-Api-Key
+  description: Public key prefixed with `luc_pk_`. Safe to expose in client-side code. For `navigator.sendBeacon`
+    callers that cannot set headers, the key may also be passed as the `api_key` query parameter.
+  sources:
+  - openapi/lucent-openapi-original.json
+- name: lucentBearer
+  type: http
+  scheme: bearer
+  description: API keys prefixed with `luc_api_` or OAuth access tokens prefixed with `luc_oat_`.
+    Legacy static keys prefixed with `luc_mcp_` continue to work.
+  sources:
+  - openapi/lucent-openapi-original.json
