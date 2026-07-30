@@ -1,7 +1,29 @@
 aid: lucent
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lucent.png
 name: Lucent
-description: Lucent is a company surfaced as a portfolio company of y-combinator and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Lucent is an AI product manager for session replay: it watches user session
+  recordings continuously and automatically detects bugs and UX issues,
+  surfacing them as prioritized, AI-verified issues with reproduction steps,
+  console logs, network activity, and affected-user counts. It ingests rrweb
+  session batches from a lightweight browser SDK (plus React Native and Flutter),
+  imports replays from providers such as PostHog and Sentry, and exposes a REST
+  Data API to read issues, signals, and insights and to update issue status,
+  webhooks for issue events, and a hosted Model Context Protocol (MCP) server so
+  agents like Claude and Cursor can query Lucent data directly. Founded 2025,
+  Y Combinator Winter 2026 batch.
 url: https://raw.githubusercontent.com/api-evangelist/lucent/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,12 +33,142 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Session Replay
+- Product Analytics
+- Bug Detection
+- Observability
+- Artificial Intelligence
+- Developer Tools
+- MCP
+- Webhooks
+apis:
+- aid: lucent:lucent-insights-api
+  name: Lucent Insights API
+  description: The Insights API from Lucent — 1 operation(s) for insights.
+  humanURL: https://docs.lucenthq.com/api-reference/introduction
+  baseURL: https://app.lucenthq.com
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/lucent-insights-api-openapi.yml
+- aid: lucent:lucent-issues-api
+  name: Lucent Issues API
+  description: The Issues API from Lucent — 2 operation(s) for issues.
+  humanURL: https://docs.lucenthq.com/api-reference/introduction
+  baseURL: https://app.lucenthq.com
+  tags:
+  - Issues
+  properties:
+  - type: OpenAPI
+    url: openapi/lucent-issues-api-openapi.yml
+- aid: lucent:lucent-sdk-api
+  name: Lucent Sdk API
+  description: The Sdk API from Lucent — 1 operation(s) for sdk.
+  humanURL: https://docs.lucenthq.com/api-reference/introduction
+  baseURL: https://app.lucenthq.com
+  tags:
+  - Sdk
+  properties:
+  - type: OpenAPI
+    url: openapi/lucent-sdk-api-openapi.yml
+- aid: lucent:lucent-signals-api
+  name: Lucent Signals API
+  description: The Signals API from Lucent — 1 operation(s) for signals.
+  humanURL: https://docs.lucenthq.com/api-reference/introduction
+  baseURL: https://app.lucenthq.com
+  tags:
+  - Signals
+  properties:
+  - type: OpenAPI
+    url: openapi/lucent-signals-api-openapi.yml
+common:
+- type: AgenticAccess
+  url: agentic-access/lucent-agentic-access.yml
+- type: DomainSecurity
+  url: security/lucent-domain-security.yml
+- type: Authentication
+  url: authentication/lucent-authentication.yml
+- type: OAuthScopes
+  url: scopes/lucent-scopes.yml
+- type: MCPServer
+  url: mcp/lucent-mcp.yml
+- type: Packages
+  url: packages/lucent-packages.yml
+- type: SDKs
+  url: packages/lucent-packages.yml
+- type: CLI
+  url: cli/lucent-cli.yml
+- type: WellKnown
+  url: well-known/lucent-well-known.yml
+- type: LLMsTxt
+  url: llms/lucent-llms.txt
+- type: Conventions
+  url: conventions/lucent-conventions.yml
+- type: Idempotency
+  url: conventions/lucent-conventions.yml
+- type: ErrorCatalog
+  url: errors/lucent-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/lucent-lifecycle.yml
+- type: Conformance
+  url: conformance/lucent-conformance.yml
+- type: DataModel
+  url: data-model/lucent-data-model.yml
+- type: AsyncAPI
+  url: asyncapi/lucent-webhooks-asyncapi.yml
+- type: Webhooks
+  url: asyncapi/lucent-webhooks-asyncapi.yml
+- type: Overlay
+  url: overlays/lucent-openapi-overlay.yaml
+- type: Arazzo
+  name: Triage and resolve an issue
+  url: arazzo/lucent-triage-and-resolve.yml
+- type: AgentSkill
+  name: Triage Lucent issues
+  url: skills/lucent-triage-issues.md
+- type: AgentSkill
+  name: Monitor Lucent signals and insights
+  url: skills/lucent-monitor-signals-insights.md
+- type: AgentSkill
+  name: Ingest a Lucent session replay
+  url: skills/lucent-ingest-replay.md
+- type: Website
+  url: https://lucenthq.com
+- type: DeveloperPortal
+  url: https://docs.lucenthq.com
+- type: Documentation
+  url: https://docs.lucenthq.com
+- type: APIReference
+  url: https://docs.lucenthq.com/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.lucenthq.com/quickstart
+- type: Blog
+  url: https://lucenthq.com/blog
+- type: Pricing
+  url: https://lucenthq.com/pricing
+- type: SignUp
+  url: https://app.lucenthq.com/sign-up
+- type: Login
+  url: https://app.lucenthq.com
+- type: TermsOfService
+  url: https://lucenthq.com/terms
+- type: PrivacyPolicy
+  url: https://lucenthq.com/privacy
+- type: Support
+  url: https://lucenthq.com/contact
+- type: GitHubOrganization
+  url: https://github.com/lucent-ai
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v1
