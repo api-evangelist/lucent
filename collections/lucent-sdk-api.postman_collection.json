@@ -1,0 +1,374 @@
+{
+  "item": [
+    {
+      "id": "d79a7a3b-526b-444b-a247-3efe8121dd79",
+      "name": "Sdk",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4f737c10-d4e9-4d3d-9b49-f71703a3083e",
+          "name": "Submit a replay batch",
+          "request": {
+            "name": "Submit a replay batch",
+            "description": {
+              "content": "Accepts a batch of rrweb events for a single session window. Batches are idempotent per `(sessionId, sequence)` — the same batch submitted twice is stored once. When `flush` is `final`, the server dispatches the session for processing immediately; otherwise the session is left in a `receiving` state until a scheduled finalizer picks it up.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "sdk",
+                "replay"
+              ],
+              "host": [
+                "{{api-sdk-replay-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Lucent-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": 3657.824957241228,\n      \"key_1\": 4393\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": \"<number>\",\n        \"type\": \"<integer>\",\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1ef2abf-9d63-45bb-bab2-3fd8de0f2fb5",
+              "name": "Batch accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sdk",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{api-sdk-replay-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Lucent-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": 5314.101071407381,\n        \"type\": 6405,\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "795b0c68-51e2-4a6e-9388-6942c57f8678",
+              "name": "Invalid replay batch.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sdk",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{api-sdk-replay-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Lucent-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": 5314.101071407381,\n        \"type\": 6405,\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid replay batch\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8c5d96e-c5c6-434a-a694-1f4d67649757",
+              "name": "Missing, invalid, or revoked API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sdk",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{api-sdk-replay-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Lucent-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": 5314.101071407381,\n        \"type\": 6405,\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Missing API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f8cba3a-e134-47a5-bedd-2369b87adc17",
+              "name": "Rate limit exceeded (100 requests per minute per API key).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sdk",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{api-sdk-replay-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Lucent-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": 5314.101071407381,\n        \"type\": 6405,\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds until the rate limit resets.",
+                  "key": "Retry-After",
+                  "value": "1317"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00009874-8d67-4755-9a14-d8a9d35ab2ef",
+              "name": "Storage upload or server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sdk",
+                    "replay"
+                  ],
+                  "host": [
+                    "{{api-sdk-replay-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Lucent-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"windowId\": \"<string>\",\n    \"startedAt\": \"<number>\",\n    \"lastActivityAt\": \"<number>\",\n    \"url\": \"<string>\"\n  },\n  \"user\": {\n    \"anonymousId\": \"<string>\",\n    \"id\": \"<string>\",\n    \"properties\": {\n      \"key_0\": false,\n      \"key_1\": false\n    }\n  },\n  \"page\": {\n    \"url\": \"<string>\",\n    \"referrer\": \"<string>\",\n    \"viewport\": {\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    }\n  },\n  \"replay\": {\n    \"events\": [\n      {\n        \"timestamp\": 5314.101071407381,\n        \"type\": 6405,\n        \"data\": {}\n      }\n    ],\n    \"sequence\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"userAgent\": \"<string>\",\n    \"language\": \"<string>\"\n  },\n  \"flush\": \"normal\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.lucenthq.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://batch-jobs-lucent.onrender.com",
+      "key": "api-sdk-replay-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "eb87826a-9c96-459a-890e-0dc6849a6b9d",
+    "name": "Lucent Insights Sdk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.",
+      "type": "text/plain"
+    }
+  }
+}

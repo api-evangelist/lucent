@@ -1,0 +1,336 @@
+{
+  "item": [
+    {
+      "id": "a5c56eee-0ea1-4214-a30d-7d805990103d",
+      "name": "Signals",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "648ff171-9b33-447c-86c9-06eb5ecd9014",
+          "name": "List signals",
+          "request": {
+            "name": "List signals",
+            "description": {
+              "content": "Lists configured signals and match counts for the bearer token's organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "signals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum signals to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque pagination cursor returned as `nextCursor` from the previous page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "50a0af52-3872-4495-9789-6ab28a225528",
+              "name": "Signals page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"signals\": [\n    {\n      \"id\": \"10d3149e-c4ce-b3fc-457f-35755846fa65\",\n      \"name\": \"string\",\n      \"prompt\": \"string\",\n      \"status\": \"string\",\n      \"backfillStatus\": \"string\",\n      \"createdAt\": \"1989-01-03T07:32:22.730Z\",\n      \"matchCount\": 1525,\n      \"lastMatchAt\": \"2007-12-23T07:59:21.221Z\"\n    },\n    {\n      \"id\": \"048b7e12-e6a8-2607-32b9-e7b1abad8912\",\n      \"name\": \"string\",\n      \"prompt\": \"string\",\n      \"status\": \"string\",\n      \"backfillStatus\": \"string\",\n      \"createdAt\": \"2020-11-16T05:43:59.838Z\",\n      \"matchCount\": 9411,\n      \"lastMatchAt\": \"2008-08-26T23:44:54.772Z\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21280aed-3f63-41c5-8a90-7f5f3a024456",
+              "name": "Invalid request parameter or body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc170a5a-0010-4878-9692-dea8a0a31823",
+              "name": "Missing, malformed, revoked, or unknown bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Bearer challenge with the required scope.",
+                  "key": "WWW-Authenticate",
+                  "value": "Bearer scope=\"read:lucent\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "869f2ca8-d384-4914-9aee-160b641fe395",
+              "name": "Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "signals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds until the rate limit resets.",
+                  "key": "Retry-After",
+                  "value": "6634"
+                },
+                {
+                  "disabled": false,
+                  "description": "Limit for the current window.",
+                  "key": "X-RateLimit-Limit",
+                  "value": "1891"
+                },
+                {
+                  "disabled": false,
+                  "description": "Remaining requests in the current window.",
+                  "key": "X-RateLimit-Remaining",
+                  "value": "1891"
+                },
+                {
+                  "disabled": false,
+                  "description": "Unix timestamp when the current window resets.",
+                  "key": "X-RateLimit-Reset",
+                  "value": "1891"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.lucenthq.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c621c631-ffbd-45af-b920-3159657a2f4d",
+    "name": "Lucent Insights Signals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.",
+      "type": "text/plain"
+    }
+  }
+}

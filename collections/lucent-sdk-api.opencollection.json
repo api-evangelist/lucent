@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lucent Insights Sdk API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sdk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a replay batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.lucenthq.com/api/sdk/replay",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Lucent-Api-Key",
+              "value": "{{X-Lucent-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Accepts a batch of rrweb events for a single session window. Batches are idempotent per `(sessionId, sequence)` — the same batch submitted twice is stored once. When `flush` is `final`, the server dispatches the session for processing immediately; otherwise the session is left in a `receiving` state until a scheduled finalizer picks it up."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
