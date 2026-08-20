@@ -43,6 +43,16 @@ tags:
 - Artificial Intelligence
 - Developer Tools
 - MCP
+- Webhook
+tags_raw:
+- Company
+- Session Replay
+- Product Analytics
+- Bug Detection
+- Observability
+- Artificial Intelligence
+- Developer Tools
+- MCP
 - Webhooks
 apis:
 - aid: lucent:lucent-insights-api
@@ -71,6 +81,8 @@ apis:
   humanURL: https://docs.lucenthq.com/api-reference/introduction
   baseURL: https://app.lucenthq.com
   tags:
+  - SDK
+  tags_raw:
   - Sdk
   properties:
   - type: OpenAPI
