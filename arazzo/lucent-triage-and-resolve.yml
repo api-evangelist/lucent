@@ -4,8 +4,8 @@ info:
   version: 1.0.0
   description: List unresolved issues, fetch the top one, and mark it resolved.
 sourceDescriptions:
-- name: lucent
-  url: ../openapi/lucent-openapi-original.json
+- name: issuesApi
+  url: ../openapi/lucent-issues-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: triageAndResolveIssue
