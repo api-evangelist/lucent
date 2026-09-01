@@ -93,7 +93,7 @@ apis:
   humanURL: https://docs.lucenthq.com/api-reference/introduction
   baseURL: https://app.lucenthq.com
   tags:
-  - Sdk
+  - SDK
   tags_raw:
   - Sdk
   properties:
