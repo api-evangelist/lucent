@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Lucent Insights API
   description: HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.
@@ -37,38 +37,14 @@ paths:
       tags:
       - Insights
 components:
-  parameters:
-    LimitInsights:
-      name: limit
-      in: query
-      required: false
-      description: Maximum insights to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
   schemas:
-    ListInsightsResponse:
+    ErrorResponse:
       type: object
       required:
-      - insights
-      - nextCursor
+      - error
       properties:
-        insights:
-          type: array
-          items:
-            $ref: '#/components/schemas/Insight'
-        nextCursor:
+        error:
           type: string
-          nullable: true
     Insight:
       type: object
       required:
@@ -96,13 +72,19 @@ components:
           minimum: 0
         contentPreview:
           type: string
-    ErrorResponse:
+    ListInsightsResponse:
       type: object
       required:
-      - error
+      - insights
+      - nextCursor
       properties:
-        error:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insight'
+        nextCursor:
           type: string
+          nullable: true
   responses:
     DataRateLimited:
       description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
@@ -128,6 +110,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     DataUnauthorized:
       description: Missing, malformed, revoked, or unknown bearer token.
       headers:
@@ -140,12 +128,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    DataBadRequest:
-      description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
+    LimitInsights:
+      name: limit
+      in: query
+      required: false
+      description: Maximum insights to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   securitySchemes:
     lucentApiKey:
       type: apiKey

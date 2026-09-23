@@ -2,25 +2,33 @@ generated: '2026-07-20'
 method: searched
 source: live probe of /.well-known/ on Lucent hosts
 host: https://app.lucenthq.com
-documents:
-- path: /.well-known/oauth-authorization-server
-  status: 200
-  file: lucent-oauth-authorization-server.json
-  note: RFC 8414 OAuth 2.0 Authorization Server Metadata (fronts the MCP endpoint; PKCE S256, DCR, refresh tokens)
-- path: /.well-known/oauth-protected-resource
-  status: 200
-  file: lucent-oauth-protected-resource.json
-  note: RFC 9728 OAuth 2.0 Protected Resource Metadata for the MCP resource https://app.lucenthq.com/api/mcp
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
 other_hosts_checked:
 - host: https://lucenthq.com
   result: all probed paths 404
 - host: https://docs.lucenthq.com
   result: all probed paths 404
+hosts:
+- host: https://app.lucenthq.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: lucent-oauth-authorization-server.json
+    note: RFC 8414 OAuth 2.0 Authorization Server Metadata (fronts the MCP endpoint; PKCE S256, DCR, refresh
+      tokens)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: lucent-oauth-protected-resource.json
+    note: RFC 9728 OAuth 2.0 Protected Resource Metadata for the MCP resource https://app.lucenthq.com/api/mcp
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lucent Insights Sdk API
+  title: Lucent SDK API
   description: HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.
   license:
     name: MIT
@@ -9,7 +9,7 @@ servers:
 - url: https://app.lucenthq.com
   description: Production app
 tags:
-- name: Sdk
+- name: SDK
 paths:
   /api/sdk/replay:
     servers:
@@ -73,25 +73,42 @@ paths:
                   error:
                     type: string
       tags:
-      - Sdk
+      - SDK
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or revoked API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                type: string
+                enum:
+                - Missing API key
+                - Invalid or revoked API key
+    RateLimited:
+      description: Rate limit exceeded (100 requests per minute per API key).
+      headers:
+        Retry-After:
+          description: Seconds until the rate limit resets.
+          schema:
+            type: integer
+            minimum: 1
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                type: string
+                const: Rate limit exceeded
   schemas:
-    RrwebEvent:
-      type: object
-      description: A single rrweb event. Opaque to Lucent — stored and replayed as-is.
-      required:
-      - timestamp
-      - type
-      - data
-      properties:
-        timestamp:
-          type: number
-          description: Epoch milliseconds when the event was captured.
-        type:
-          type: integer
-          description: rrweb event type discriminator.
-        data:
-          description: rrweb event payload. Shape depends on `type`.
     ReplayBatch:
       type: object
       required:
@@ -198,39 +215,22 @@ components:
           - final
           default: normal
           description: '`final` tells the server this is the last batch for the session — typically sent from a `beforeunload` handler. `final` batches trigger immediate session processing.'
-  responses:
-    RateLimited:
-      description: Rate limit exceeded (100 requests per minute per API key).
-      headers:
-        Retry-After:
-          description: Seconds until the rate limit resets.
-          schema:
-            type: integer
-            minimum: 1
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - error
-            properties:
-              error:
-                type: string
-                const: Rate limit exceeded
-    Unauthorized:
-      description: Missing, invalid, or revoked API key.
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - error
-            properties:
-              error:
-                type: string
-                enum:
-                - Missing API key
-                - Invalid or revoked API key
+    RrwebEvent:
+      type: object
+      description: A single rrweb event. Opaque to Lucent — stored and replayed as-is.
+      required:
+      - timestamp
+      - type
+      - data
+      properties:
+        timestamp:
+          type: number
+          description: Epoch milliseconds when the event was captured.
+        type:
+          type: integer
+          description: rrweb event type discriminator.
+        data:
+          description: rrweb event payload. Shape depends on `type`.
   securitySchemes:
     lucentApiKey:
       type: apiKey

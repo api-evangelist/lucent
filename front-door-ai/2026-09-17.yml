@@ -1,0 +1,30 @@
+# Front Door AI Index — lucent — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: lucent
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: lucenthq.com
+  final_host: lucenthq.com
+  ownership: own
+  owner: lucent
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 9
+  host_score: 9
+  density: 6.32
+  words: 1423
+  tiers:
+    agentic: 1
+    core: 6
+    model: 2
+  ambiguous: 3
+  top_terms:
+    AI: 6
+    smart: 2
+    ChatGPT: 1
+    Claude: 1
+    MCP: 1
+    intelligence: 1

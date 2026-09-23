@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Lucent Insights Issues API
+  title: Lucent Issues API
   description: HTTP APIs for Lucent. The Data API reads Lucent data and updates issue status. The Ingest API receives rrweb batches from the @lucenthq/sdk browser package and custom integrations built on top of the same contract.
   license:
     name: MIT
@@ -108,19 +108,36 @@ paths:
       - Issues
 components:
   schemas:
-    ListIssuesResponse:
+    IssuePriority:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      - critical
+    ErrorResponse:
       type: object
       required:
-      - issues
-      - nextCursor
+      - error
       properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssueSummary'
-        nextCursor:
+        error:
           type: string
-          nullable: true
+    Issue:
+      allOf:
+      - $ref: '#/components/schemas/IssueSummary'
+      - type: object
+        required:
+        - updatedAt
+        properties:
+          stepsToReplicate:
+            type: string
+            nullable: true
+          aiVerified:
+            type: boolean
+            nullable: true
+          updatedAt:
+            type: string
+            format: date-time
     IssueSummary:
       type: object
       required:
@@ -163,43 +180,6 @@ components:
         ticketIdentifier:
           type: string
           nullable: true
-    Issue:
-      allOf:
-      - $ref: '#/components/schemas/IssueSummary'
-      - type: object
-        required:
-        - updatedAt
-        properties:
-          stepsToReplicate:
-            type: string
-            nullable: true
-          aiVerified:
-            type: boolean
-            nullable: true
-          updatedAt:
-            type: string
-            format: date-time
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-    GetIssueResponse:
-      type: object
-      required:
-      - issue
-      properties:
-        issue:
-          $ref: '#/components/schemas/Issue'
-    IssuePriority:
-      type: string
-      enum:
-      - low
-      - medium
-      - high
-      - critical
     IssueStatus:
       type: string
       enum:
@@ -207,19 +187,27 @@ components:
       - ticket_created
       - transient
       - resolved
+    ListIssuesResponse:
+      type: object
+      required:
+      - issues
+      - nextCursor
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+        nextCursor:
+          type: string
+          nullable: true
+    GetIssueResponse:
+      type: object
+      required:
+      - issue
+      properties:
+        issue:
+          $ref: '#/components/schemas/Issue'
   responses:
-    DataIssueNotFound:
-      description: The issue was not found in the token's organization.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataForbidden:
-      description: The bearer token is valid but lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     DataRateLimited:
       description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
       headers:
@@ -244,6 +232,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    DataForbidden:
+      description: The bearer token is valid but lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataIssueNotFound:
+      description: The issue was not found in the token's organization.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     DataUnauthorized:
       description: Missing, malformed, revoked, or unknown bearer token.
       headers:
@@ -256,13 +262,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    DataBadRequest:
-      description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    LimitIssues:
+      name: limit
+      in: query
+      required: false
+      description: Maximum issues to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
     IssueId:
       name: issueId
       in: path
@@ -279,16 +289,6 @@ components:
       description: Opaque pagination cursor returned as `nextCursor` from the previous page.
       schema:
         type: string
-    LimitIssues:
-      name: limit
-      in: query
-      required: false
-      description: Maximum issues to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 200
-        default: 25
   securitySchemes:
     lucentApiKey:
       type: apiKey

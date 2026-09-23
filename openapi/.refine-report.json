@@ -1,10 +1,7 @@
 {
   "provider": "lucent",
   "sources": [
-    "lucent-insights-api-openapi.yml",
-    "lucent-issues-api-openapi.yml",
-    "lucent-sdk-api-openapi.yml",
-    "lucent-signals-api-openapi.yml"
+    "_original/lucent-openapi-original.json"
   ],
   "outputs": [
     "lucent-insights-api-openapi.yml",
@@ -15,6 +12,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lucent-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "lucent-openapi-original.json: tagged paths POST /api/sdk/replay -> Sdk",
+    "lucent-openapi-original.json: tagged paths GET /api/v1/issues -> Issues",
+    "lucent-openapi-original.json: tagged paths GET /api/v1/issues/{issueId} -> Issues",
+    "lucent-openapi-original.json: tagged paths PATCH /api/v1/issues/{issueId} -> Issues",
+    "lucent-openapi-original.json: tagged paths GET /api/v1/signals -> Signals",
+    "lucent-openapi-original.json: tagged paths GET /api/v1/insights -> Insights",
+    "lucent-openapi-original.json: declared missing tag: Insights",
+    "lucent-openapi-original.json: declared missing tag: Issues",
+    "lucent-openapi-original.json: declared missing tag: Sdk",
+    "lucent-openapi-original.json: declared missing tag: Signals",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lucent-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lucent-issues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lucent-sdk-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lucent-signals-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
