@@ -38,6 +38,19 @@ paths:
       - Signals
 components:
   schemas:
+    ListSignalsResponse:
+      type: object
+      required:
+      - signals
+      - nextCursor
+      properties:
+        signals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signal'
+        nextCursor:
+          type: string
+          nullable: true
     ErrorResponse:
       type: object
       required:
@@ -78,20 +91,19 @@ components:
           type: string
           format: date-time
           nullable: true
-    ListSignalsResponse:
-      type: object
-      required:
-      - signals
-      - nextCursor
-      properties:
-        signals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Signal'
-        nextCursor:
-          type: string
-          nullable: true
   responses:
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     DataRateLimited:
       description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
       headers:
@@ -118,18 +130,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     DataBadRequest:
       description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
       content:
         application/json:
           schema:

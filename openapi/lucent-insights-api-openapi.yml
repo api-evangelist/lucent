@@ -37,55 +37,19 @@ paths:
       tags:
       - Insights
 components:
-  schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-    Insight:
-      type: object
-      required:
-      - id
-      - createdAt
-      - intervalStart
-      - intervalEnd
-      - sessionsCount
-      - contentPreview
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-        intervalStart:
-          type: string
-          format: date-time
-        intervalEnd:
-          type: string
-          format: date-time
-        sessionsCount:
-          type: integer
-          minimum: 0
-        contentPreview:
-          type: string
-    ListInsightsResponse:
-      type: object
-      required:
-      - insights
-      - nextCursor
-      properties:
-        insights:
-          type: array
-          items:
-            $ref: '#/components/schemas/Insight'
-        nextCursor:
-          type: string
-          nullable: true
   responses:
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     DataRateLimited:
       description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
       headers:
@@ -116,26 +80,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
     LimitInsights:
       name: limit
       in: query
@@ -146,6 +91,61 @@ components:
         minimum: 1
         maximum: 100
         default: 25
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+    ListInsightsResponse:
+      type: object
+      required:
+      - insights
+      - nextCursor
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insight'
+        nextCursor:
+          type: string
+          nullable: true
+    Insight:
+      type: object
+      required:
+      - id
+      - createdAt
+      - intervalStart
+      - intervalEnd
+      - sessionsCount
+      - contentPreview
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        intervalStart:
+          type: string
+          format: date-time
+        intervalEnd:
+          type: string
+          format: date-time
+        sessionsCount:
+          type: integer
+          minimum: 0
+        contentPreview:
+          type: string
   securitySchemes:
     lucentApiKey:
       type: apiKey
