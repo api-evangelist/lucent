@@ -107,14 +107,96 @@ paths:
       tags:
       - Issues
 components:
+  responses:
+    DataForbidden:
+      description: The bearer token is valid but lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataRateLimited:
+      description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
+      headers:
+        Retry-After:
+          description: Seconds until the rate limit resets.
+          schema:
+            type: integer
+            minimum: 1
+        X-RateLimit-Limit:
+          description: Limit for the current window.
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: Remaining requests in the current window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: Unix timestamp when the current window resets.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataIssueNotFound:
+      description: The issue was not found in the token's organization.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    LimitIssues:
+      name: limit
+      in: query
+      required: false
+      description: Maximum issues to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+    IssueId:
+      name: issueId
+      in: path
+      required: true
+      description: Issue UUID.
+      schema:
+        type: string
+        format: uuid
+        example: 87b3a6b6-5af5-438b-a39c-eff148a68ccb
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
   schemas:
-    GetIssueResponse:
-      type: object
-      required:
-      - issue
-      properties:
-        issue:
-          $ref: '#/components/schemas/Issue'
+    IssuePriority:
+      type: string
+      enum:
+      - low
+      - medium
+      - high
+      - critical
     Issue:
       allOf:
       - $ref: '#/components/schemas/IssueSummary'
@@ -131,33 +213,6 @@ components:
           updatedAt:
             type: string
             format: date-time
-    IssueStatus:
-      type: string
-      enum:
-      - unresolved
-      - ticket_created
-      - transient
-      - resolved
-    IssuePriority:
-      type: string
-      enum:
-      - low
-      - medium
-      - high
-      - critical
-    ListIssuesResponse:
-      type: object
-      required:
-      - issues
-      - nextCursor
-      properties:
-        issues:
-          type: array
-          items:
-            $ref: '#/components/schemas/IssueSummary'
-        nextCursor:
-          type: string
-          nullable: true
     IssueSummary:
       type: object
       required:
@@ -200,6 +255,13 @@ components:
         ticketIdentifier:
           type: string
           nullable: true
+    IssueStatus:
+      type: string
+      enum:
+      - unresolved
+      - ticket_created
+      - transient
+      - resolved
     ErrorResponse:
       type: object
       required:
@@ -207,88 +269,26 @@ components:
       properties:
         error:
           type: string
-  responses:
-    DataForbidden:
-      description: The bearer token is valid but lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataIssueNotFound:
-      description: The issue was not found in the token's organization.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataRateLimited:
-      description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
-      headers:
-        Retry-After:
-          description: Seconds until the rate limit resets.
-          schema:
-            type: integer
-            minimum: 1
-        X-RateLimit-Limit:
-          description: Limit for the current window.
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: Remaining requests in the current window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: Unix timestamp when the current window resets.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataBadRequest:
-      description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    IssueId:
-      name: issueId
-      in: path
-      required: true
-      description: Issue UUID.
-      schema:
-        type: string
-        format: uuid
-        example: 87b3a6b6-5af5-438b-a39c-eff148a68ccb
-    LimitIssues:
-      name: limit
-      in: query
-      required: false
-      description: Maximum issues to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 200
-        default: 25
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
+    GetIssueResponse:
+      type: object
+      required:
+      - issue
+      properties:
+        issue:
+          $ref: '#/components/schemas/Issue'
+    ListIssuesResponse:
+      type: object
+      required:
+      - issues
+      - nextCursor
+      properties:
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+        nextCursor:
+          type: string
+          nullable: true
   securitySchemes:
     lucentApiKey:
       type: apiKey
