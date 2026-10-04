@@ -38,6 +38,13 @@ paths:
       - Insights
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
     Insight:
       type: object
       required:
@@ -65,13 +72,6 @@ components:
           minimum: 0
         contentPreview:
           type: string
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
     ListInsightsResponse:
       type: object
       required:
@@ -85,7 +85,43 @@ components:
         nextCursor:
           type: string
           nullable: true
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
+    LimitInsights:
+      name: limit
+      in: query
+      required: false
+      description: Maximum insights to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   responses:
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     DataRateLimited:
       description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
       headers:
@@ -110,42 +146,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    DataBadRequest:
-      description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    LimitInsights:
-      name: limit
-      in: query
-      required: false
-      description: Maximum insights to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
   securitySchemes:
     lucentApiKey:
       type: apiKey

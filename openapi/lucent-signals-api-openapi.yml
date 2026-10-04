@@ -37,68 +37,14 @@ paths:
       tags:
       - Signals
 components:
-  parameters:
-    LimitSignals:
-      name: limit
-      in: query
-      required: false
-      description: Maximum signals to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 200
-        default: 50
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
-  responses:
-    DataRateLimited:
-      description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
-      headers:
-        Retry-After:
-          description: Seconds until the rate limit resets.
-          schema:
-            type: integer
-            minimum: 1
-        X-RateLimit-Limit:
-          description: Limit for the current window.
-          schema:
-            type: integer
-        X-RateLimit-Remaining:
-          description: Remaining requests in the current window.
-          schema:
-            type: integer
-        X-RateLimit-Reset:
-          description: Unix timestamp when the current window resets.
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataBadRequest:
-      description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
     ListSignalsResponse:
       type: object
       required:
@@ -112,13 +58,6 @@ components:
         nextCursor:
           type: string
           nullable: true
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
     Signal:
       type: object
       required:
@@ -152,6 +91,67 @@ components:
           type: string
           format: date-time
           nullable: true
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
+    LimitSignals:
+      name: limit
+      in: query
+      required: false
+      description: Maximum signals to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 50
+  responses:
+    DataBadRequest:
+      description: Invalid request parameter or body.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataRateLimited:
+      description: Rate limit exceeded. Reads allow 300 requests per minute; writes allow 60 requests per minute.
+      headers:
+        Retry-After:
+          description: Seconds until the rate limit resets.
+          schema:
+            type: integer
+            minimum: 1
+        X-RateLimit-Limit:
+          description: Limit for the current window.
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          description: Remaining requests in the current window.
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          description: Unix timestamp when the current window resets.
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     lucentApiKey:
       type: apiKey
