@@ -46,6 +46,9 @@ x-tier-reason: portfolio-lead
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-20'
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Company
 - Session Replay
@@ -110,6 +113,9 @@ apis:
   - type: OpenAPI
     url: openapi/lucent-signals-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/lucent-capability-edges.yml
+  name: Lucent Business Capability Map
 - type: AgenticAccess
   url: agentic-access/lucent-agentic-access.yml
 - type: DomainSecurity
