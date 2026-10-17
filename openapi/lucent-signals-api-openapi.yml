@@ -45,19 +45,6 @@ components:
       properties:
         error:
           type: string
-    ListSignalsResponse:
-      type: object
-      required:
-      - signals
-      - nextCursor
-      properties:
-        signals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Signal'
-        nextCursor:
-          type: string
-          nullable: true
     Signal:
       type: object
       required:
@@ -91,14 +78,20 @@ components:
           type: string
           format: date-time
           nullable: true
+    ListSignalsResponse:
+      type: object
+      required:
+      - signals
+      - nextCursor
+      properties:
+        signals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signal'
+        nextCursor:
+          type: string
+          nullable: true
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
-      schema:
-        type: string
     LimitSignals:
       name: limit
       in: query
@@ -109,21 +102,16 @@ components:
         minimum: 1
         maximum: 200
         default: 50
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as `nextCursor` from the previous page.
+      schema:
+        type: string
   responses:
     DataBadRequest:
       description: Invalid request parameter or body.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    DataUnauthorized:
-      description: Missing, malformed, revoked, or unknown bearer token.
-      headers:
-        WWW-Authenticate:
-          description: Bearer challenge with the required scope.
-          schema:
-            type: string
-            example: Bearer scope="read:lucent"
       content:
         application/json:
           schema:
@@ -148,6 +136,18 @@ components:
           description: Unix timestamp when the current window resets.
           schema:
             type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DataUnauthorized:
+      description: Missing, malformed, revoked, or unknown bearer token.
+      headers:
+        WWW-Authenticate:
+          description: Bearer challenge with the required scope.
+          schema:
+            type: string
+            example: Bearer scope="read:lucent"
       content:
         application/json:
           schema:
