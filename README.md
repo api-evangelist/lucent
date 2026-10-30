@@ -64,6 +64,156 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lucent is a company surfaced as a portfolio company of y-combinator and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Lucent is an AI product manager for session replay: it watches user session recordings continuously and automatically detects bugs and UX issues, surfacing them as prioritized, AI-verified issues with reproduction steps, console logs, network activity, and affected-user counts. It ingests rrweb session batches from a lightweight browser SDK (plus React Native and Flutter), imports replays from providers such as PostHog and Sentry, and exposes a REST Data API to read issues, signals, and insights and to update issue status, webhooks for issue events, and a hosted Model Context Protocol (MCP) server so agents like Claude and Cursor can query Lucent data directly. Founded 2025, Y Combinator Winter 2026 batch.
 
-Backed by: y-combinator
+**Areas:** Company · Session Replay · Product Analytics · Bug Detection · Observability · Artificial Intelligence · Developer Tools · MCP · Webhook
+
+## Lucent on APIs.io
+
+Everything profiled for Lucent is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lucent/](https://apis.io/providers/lucent/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Lucent Insights API](https://apis.io/apis/lucent/lucent-insights-api/) — The Insights API from Lucent — 1 operation(s) for insights.
+- [Lucent Issues API](https://apis.io/apis/lucent/lucent-issues-api/) — The Issues API from Lucent — 2 operation(s) for issues.
+- [Lucent Sdk API](https://apis.io/apis/lucent/lucent-sdk-api/) — The Sdk API from Lucent — 1 operation(s) for sdk.
+- [Lucent Signals API](https://apis.io/apis/lucent/lucent-signals-api/) — The Signals API from Lucent — 1 operation(s) for signals.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (1)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Lucent — triage and resolve an issue](https://apis.io/arazzos/lucent/lucent-triage-and-resolve/)
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Lucent Webhooks](https://apis.io/asyncapis/lucent/lucent-webhooks-asyncapi/)
+
+#### Event channels (1)
+
+Individual events and webhooks the provider emits.
+
+- [/](https://apis.io/channels/lucent/webhookdeliveries/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [lucent](https://apis.io/servers/lucent/lucent/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Lucent Agentic Access](https://apis.io/agentic-access/lucent/lucent-agentic-access/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Lucent Insights API](https://apis.io/collections/lucent/open-lucent-insights-api/)
+- [Lucent Insights Issues API](https://apis.io/collections/lucent/open-lucent-issues-api/)
+- [Lucent Insights Sdk API](https://apis.io/collections/lucent/open-lucent-sdk-api/)
+- [Lucent Insights Signals API](https://apis.io/collections/lucent/open-lucent-signals-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Lucent Openapi Overlay](https://apis.io/overlays/lucent/lucent-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lucent Authentication](https://apis.io/security/lucent/lucent-authentication/)
+- [Lucent Domain Security](https://apis.io/security/lucent/lucent-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Lucent Scopes](https://apis.io/scopes/lucent/lucent-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Lucent Plans Pricing](https://apis.io/plans/lucent/lucent-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://lucenthq.com)
+- [Documentation](https://docs.lucenthq.com)
+- [Getting started](https://docs.lucenthq.com/quickstart)
+- [API reference](https://docs.lucenthq.com/api-reference/introduction)
+- [Pricing](https://lucenthq.com/pricing)
+- [Sign up](https://app.lucenthq.com/sign-up)
+- [Support](https://lucenthq.com/contact)
+- [Blog](https://lucenthq.com/blog)
+- [Terms of service](https://lucenthq.com/terms)
+- [Privacy policy](https://lucenthq.com/privacy)
+- [GitHub](https://github.com/lucent-ai)
+
+## API Evangelist rating
+
+**Kin Score 57.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 57.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 76.3 |
+
+**Agent readiness 59.7** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | verified |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lucent/](https://apis.io/providers/lucent/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lucent: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lucent/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
